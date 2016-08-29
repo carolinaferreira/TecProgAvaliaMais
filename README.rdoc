@@ -1,0 +1,7 @@
+== TecProg 2016/02 - Avalia + - Grupo 02
+
+* O projeto denominado de AVALIA+ engloba em seu escopo as principais reclamações e avaliações dos consumidores brasileiros em uma aplicação web. Nesta, o usuário poderá avaliar empresas e registrar a sua para ver a visibilidade dela no mercado pelos seus clientes.
+
+* Projeto da disciplina Técnicas de Programação (TecProg) do curso de Engenharia de Software, Campus UnB Gama.
+
+* [Repositório 1 - ENEM Amigo](https://github.com/carolinaferreira/TecProgEnemAmigo/)
