@@ -6,9 +6,9 @@
 class CompaniesController < ApplicationController
 
 	# Name: new
-	# Objective: This method create a new instance of company on system.
-	# Parameters: Don't have parameters.
-	# Return: Redirect to the login page.
+	# Objective: this method create a new instance of company on system.
+	# Parameters: don't have parameters.
+	# Return: redirect to the login page.
 
 	def new
 
@@ -23,9 +23,9 @@ class CompaniesController < ApplicationController
 	end
 
 	# Name: switch_medal_image.
-	# Objective: This method set the name of medal to show on company page.
-	# Parameters: Evaluation of companies.
-	# Return: The name of medal to switch on company page.
+	# Objective: this method set the name of medal to show on company page.
+	# Parameters: evaluation of companies.
+	# Return: the name of medal to switch on company page.
 
 	def switch_medal_image(company_evaluation)
 
@@ -44,9 +44,9 @@ class CompaniesController < ApplicationController
 	end
 
 	# Name: show
-	# Objective: This method renders the company's page.
-	# Parameters: Company id
-	# Return: Total evaluations, medal type name and evaluations of company.
+	# Objective: this method renders the company's page.
+	# Parameters: company id
+	# Return: total evaluations, medal type name and evaluations of company.
 
 	def show
 
@@ -68,9 +68,9 @@ class CompaniesController < ApplicationController
 	end
 
 	# Name: create
-	# Objective: This method create a new instance of company on system.
-	# Parameters: Name, Segment id, Address, Telephone, Email, Description, Logo and UF id of Company
-	# Return: Redirect to company page or create company page.
+	# Objective: this method create a new instance of company on system.
+	# Parameters: name, segment id, address, telephone, email, description, logo and UF id of company
+	# Return: redirect to company page or create company page.
 
 	def create
 
@@ -87,9 +87,9 @@ class CompaniesController < ApplicationController
 	end
 
 	# Name: edit
-	# Objective: This method checks whether the logged user is the owner of the corresponding company.
-	# Parameters: Company object and your id.
-	# Return: Redirect to intial page or company object.
+	# Objective: this method checks whether the logged user is the owner of the corresponding company.
+	# Parameters: company object and your id.
+	# Return: redirect to intial page or company object.
 
 	def edit
 
@@ -104,9 +104,9 @@ class CompaniesController < ApplicationController
 	end
 
 	# Name: update
-	# Objective: This class edit an company in the database.
-	# Parameters: Object of company id and your id
-	# Return: Redirect to company edit page.
+	# Objective: this class edit an company in the database.
+	# Parameters: object of company id and your id
+	# Return: redirect to company edit page.
 
 	def update
 
@@ -123,9 +123,9 @@ class CompaniesController < ApplicationController
 	end
 
 	# Name: search
-	# Objective: This method search companies by name within the system.
-	# Parameters: Search by name entered by the User
-	# Return: Object of company.
+	# Objective: this method search companies by name within the system.
+	# Parameters: search by name entered by the User
+	# Return: object of company.
 
 	def search
 
@@ -137,9 +137,9 @@ class CompaniesController < ApplicationController
 	end
 
 	# Name: set_company_params_to_create
-	# Objective: This method leads the company's parameters for the method create.
-	# Parameters: Company object.
-	# Return: Don't have return.
+	# Objective: this method leads the company's parameters for the method create.
+	# Parameters: company object.
+	# Return: don't have return.
 
 	private
 
@@ -150,9 +150,9 @@ class CompaniesController < ApplicationController
 		end
 
 		# Name: set_company_params_to_update
-		# Objective: This method leads the company's parameters for the method update.
-		# Parameters: Company object
-		# Return: Don't have return.
+		# Objective: this method leads the company's parameters for the method update.
+		# Parameters: company object
+		# Return: don't have return.
 
 	private
 
