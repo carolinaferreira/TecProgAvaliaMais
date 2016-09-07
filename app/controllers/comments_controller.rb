@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
 
 	def create
 		comment = Comment.create(comment_params)
-		redirect_to Topic.find(params[:comment][:topic_id])
+		return redirect_to Topic.find(params[:comment][:topic_id])
 	end
 
 	# Name: edit.
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
 	def edit
 		comment = Comment.find(params[:comment][:comment_id])
 		edit_comment_params(comment)
-		redirect_to Topic.find(comment.topic_id)
+		return redirect_to Topic.find(comment.topic_id)
 	end
 
 	# Name: destroy.
@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
 		topic = comment.topic_id
 		comment.denunciations.delete_all
 		comment.destroy
-		redirect_to Topic.find(topic)
+		return redirect_to Topic.find(topic)
 	end
 	
 	# Name: comment_params.

@@ -1,14 +1,14 @@
-# File: attaches_controller.rb
-# Purpose: Controller of attaches
-# License: AGPL.
-
+# Class: attaches_controller.rb.
+# Purpose: This class aims to control companies to be attached to the system AvaliaMais.
+# Avalia Mais.
+# FGA - Universidade de Brasíilia UnB.
 
 class AttachesController < ApplicationController
 
-	# Name: new
-	# Objective: instantiate an object of type Attach
-	# Parameters: company_id
-	# Return: attach and company
+	# Name: new.
+	# Objective: instantiate an object of type Attach.
+	# Parameters: company_id.
+	# Return: attach and company.
 
 	def new
 		@attach = Attach.new
@@ -16,19 +16,19 @@ class AttachesController < ApplicationController
 		@company = Company.find(params[:company_id])
 	end
 
-	# Name: show
-	# Objective: find an Attach object to be present
-	# Parameters: identifier of attach
-	# Return: attach
+	# Name: show.
+	# Objective: find an Attach object to be present.
+	# Parameters: identifier of attach.
+	# Return: attach.
 
 	def show
 		@attach = Attach.find(params[:id])
 	end
 
-	# Name: create
-	# Objective: cretate and set a object of type Attach
-	# Parameters: nothing
-	# Return: 
+	# Name: create.
+	# Objective: cretate and set a object of type Attach.
+	# Parameters: nothing.
+	# Return: attach.
 
 	def create
 		@attach = Attach.new(attach_params)
@@ -42,10 +42,10 @@ class AttachesController < ApplicationController
 		end
 	end
 
-	# Name: approve
-	# Objective: approves and adds a new company
-	# Parameters: format 
-	# Return: redirects to the attachment management page
+	# Name: approve.
+	# Objective: approves and adds a new company.
+	# Parameters: format .
+	# Return: nothing.
 
 	def approve
 		attach = Attach.find(params[:format])
@@ -56,10 +56,10 @@ class AttachesController < ApplicationController
 		return redirect_to management_attach_path
 	end
 
-	# Name: reject
-	# Objective: rejects the attempt to add a new company
-	# Parameters: format
-	# Return: redirects to the attachment management page
+	# Name: reject.
+	# Objective: rejects the attempt to add a new company.
+	# Parameters: format.
+	# Return: nothing.
 
 	def reject
 			attach = Attach.find(params[:format])
@@ -68,10 +68,10 @@ class AttachesController < ApplicationController
 			return redirect_to management_attach_path
 	end
 
-	# Name: attach_params
-	# Objective: set the parameters of a company
-	# Parameters: attach
-	# Return: 
+	# Name: attach_params.
+	# Objective: set the parameters of a company.
+	# Parameters: attach.
+	# Return: nothing.
 
 	private 
 		def attach_params
