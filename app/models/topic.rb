@@ -1,10 +1,14 @@
+# Class: topic.rb.
+# Purpose: To create a topic about one company.
+# Avalia Mais.
+# FGA - Universidade de Brasíilia UnB.
+
 class Topic < ActiveRecord::Base
 	belongs_to :company
 	belongs_to :user
 	has_many :comments
 	has_many :denunciations
 	before_create :set_create_date
-
 
 #something it's wrong
 =begin
@@ -29,11 +33,16 @@ class Topic < ActiveRecord::Base
 		:too_long => 'O conteúdo pode ter no máximo 1500 caractres'
 =end
 
+	private
 
-	private 
+		# Name: set_create_date
+	           # Objective: Set date.
+	           # Parameters:
+	           # Return:
+
 		def set_create_date
 			self.create_date = Date.today
-		end
 
+		end
 
 end

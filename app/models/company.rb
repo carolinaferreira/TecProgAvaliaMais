@@ -1,3 +1,8 @@
+# Class: company.rb.
+# Purpose: To create a company.
+# Avalia Mais.
+# FGA - Universidade de Brasíilia UnB.
+
 class Company < ActiveRecord::Base
     has_many :evaluations
     has_many :questions
@@ -16,11 +21,10 @@ class Company < ActiveRecord::Base
     validates_with AttachmentSizeValidator, attributes: :logo, less_than: 1.megabytes
     validates_attachment :logo, content_type: { content_type: "image/jpeg" }
 
-
     #name
     validates :name,
         presence: { :message => "Informe o nome da empresa" },
-        uniqueness: { :message => "Uma empresa já foi cadastrada com esse nome" }    
+        uniqueness: { :message => "Uma empresa já foi cadastrada com esse nome" }
 
     validates_length_of :name,
         :allow_blank => false,
@@ -38,7 +42,6 @@ class Company < ActiveRecord::Base
     validates :telephone,
         :allow_blank => true,
         numericality: { :message => "O telefone deve conter apenas números" }
-
 
     #address
     validates_length_of :address,
