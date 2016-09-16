@@ -6,7 +6,7 @@
 class ManagementsController < ApplicationController
 
 	# Name: index.
-  	# Objective: this method this method appends the complaints in order on view.
+  	# Objective: this method appends the complaints in order on view.
   	# Parameters: .
   	# Return: @attaches, @topic_ordered, @denunciations.
 
