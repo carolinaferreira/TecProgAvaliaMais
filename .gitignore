@@ -1,3 +1,4 @@
 Gemfile.lock
 log/development.log
 tmp/*
+public/csv/file.csv
