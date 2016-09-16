@@ -17,7 +17,7 @@ module SessionsHelper
 	# Name: current_user
            # Objective: Return the current logged-in user
            # Parameters:
-           # Return:
+           # Return: @current_user
 
 	def current_user
         	   @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -28,10 +28,10 @@ module SessionsHelper
 	# Name: authorize
            # Objective:
            # Parameters:
-           # Return:
+           # Return: redirect_to login_path
 
 	def authorize
-	   redirect_to login_path, alert: "Para cadastrar uma empresa é preciso estar logado" if current_user.nil?
+	   return redirect_to login_path, alert: "Para cadastrar uma empresa é preciso estar logado" if current_user.nil?
 
 	end
 
