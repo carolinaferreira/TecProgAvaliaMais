@@ -19,7 +19,7 @@ class ManagementsController < ApplicationController
 
 	end
 
-	# Name: index.
+	# Name: comment_ordered.
   	# Objective: this method order the comments.
   	# Parameters: .
   	# Return: @comment_ordered.
