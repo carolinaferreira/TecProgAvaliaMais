@@ -1,3 +1,8 @@
+# Class: user.rb.
+# Purpose: To create users.
+# Avalia Mais.
+# FGA - Universidade de Brasíilia UnB.
+
 class User < ActiveRecord::Base
 	has_many :evaluations
 	has_many :topics
@@ -6,13 +11,21 @@ class User < ActiveRecord::Base
 	has_many :comments
 	has_many :denunciations
 	has_secure_password
-	
+
 	#default values
 	after_initialize :init
+
+    # Name: init
+    # Objective:
+    # Parameters:
+    # Return:
+
     def init
-      self.active  ||= true	
-      self.admin  ||= false	
+      self.active  ||= true
+      self.admin  ||= false
+
     end
+
 	#name
 	validates_length_of :name,
   		:within => 3..50,
@@ -36,11 +49,9 @@ class User < ActiveRecord::Base
 				  		:too_long => 'Apelido com no maximo 15 caracters'
 
 	#password
-	validates :password, length: { minimum: 4, maximum: 16, :message => 'Senha deve possuir no mínimo 4 e máximo de 16 caracteres' }, on: :create		  			
-				  		
-
-  	
+	validates :password, length: { minimum: 4, maximum: 16, :message => 'Senha deve
+                                                        possuir no mínimo 4 e máximo de 16 caracteres' },
+                                                        on: :create
 
 end
 
-	

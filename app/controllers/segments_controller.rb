@@ -1,6 +1,19 @@
+# Class: segments_controller.rb.
+# Purpose: This class controls the segments of companies.
+# Avalia Mais.
+# FGA - Universidade de Brasíilia UnB.
+
 class SegmentsController < ApplicationController
-	def show_segment
-		@company = Company.all.order(:name)
-		@segment = Segment.all
-	end
+
+    # Name: show_segment.
+    # Objective: this method shows segment about any company.
+    # Parameters: :name.
+    # Return: @company, @segment.
+
+    def show_segment
+        @company = Company.all.order(:name)
+        @segment = Segment.all
+
+    end
+
 end
