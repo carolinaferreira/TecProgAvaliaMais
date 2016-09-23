@@ -1,4 +1,14 @@
+# Class: managements_controller.rb.
+# Purpose: This class controls the management of companies.
+# Avalia Mais.
+# FGA - Universidade de Brasíilia UnB.
+
 class ParsersController < ApplicationController
+
+	# Name: upload.
+  	# Objective: this method sends the information to the parser.
+  	# Parameters: :document.
+  	# Return: redirect_to 'http://0.0.0.0:3000/' or redirect_to 'http://0.0.0.0:3000/parsers' .
 
 	def upload
 		document = params[:document]
@@ -7,10 +17,11 @@ class ParsersController < ApplicationController
 				file.write(document.read)
 			end
 			Parser.save_data('public/csv/file.csv')
-			redirect_to 'http://0.0.0.0:3000/'
+			return redirect_to 'http://0.0.0.0:3000/'
 		else
-			redirect_to 'http://0.0.0.0:3000/parsers'
+			return redirect_to 'http://0.0.0.0:3000/parsers'
 		end
+
 	end
-	
+
 end

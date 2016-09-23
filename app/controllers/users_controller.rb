@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
 	 	@user = User.new(set_user_parameters)
 		if (@user.save)
-			session[:user_id] = @user.id
+			session[:user_id] = @user.id #iniciate a new session
 			log_in @user
 			flash[:notice] = 'Cadastro efetuado com sucesso!'
 			return redirect_to home_path
@@ -79,6 +79,7 @@ class UsersController < ApplicationController
 
 	def destroy
 
+		#destroy all user dependences on database but don't destroy the references objects
 		session[:user_id] = nil
  		user = User.find(params[:id])
  		user.attaches.delete_all
@@ -103,7 +104,9 @@ class UsersController < ApplicationController
 
     	@user = User.find(params[:id])
     	if (@user.update_attributes(update_user_attributes))
-    		respond_to do |format|
+			#Formating user update form with JavaScript, letting this to update without
+			#refresh the page
+			respond_to do |format|
     			format.html{
     				redirect_to :action => "show",:id => @user.id
     			}
@@ -151,11 +154,6 @@ class UsersController < ApplicationController
 
   	end
 
-  	# Name: set_user_parameters
-  	# Objective: set on database a user with its parameters
-	# Parameters: user object
-	# Return: none
-
 	private
 
 		def set_user_parameters
@@ -165,21 +163,11 @@ class UsersController < ApplicationController
 
 		end
 
-		# Name: update_user_attributes
-	  	# Objective: update user attributes
-		# Parameters: user object
-		# Return: none
-
 		def update_user_attributes
 
 			params[:user].permit(:name, :dateBirthday, :gender)
 
 		end
-
-		# Name: set_new_password
-	  # Objective: update user password
-		# Parameters: user object
-		# Return: none
 
 		def set_new_password
 

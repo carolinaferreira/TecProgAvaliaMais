@@ -15,7 +15,8 @@ class CompaniesController < ApplicationController
 		@company = Company.new(nil)
 
 		if(current_user.nil?)
-			return redirect_to login_path, alert: "Para cadastrar uma empresa é preciso estar logado"
+			return redirect_to(login_path), #alert: "Para cadastrar uma empresa é preciso estar logado"
+			flash[:alert] = 'Para cadastrar uma empresa é preciso estar logado'
 		else
 			return @company
 		end
@@ -29,14 +30,17 @@ class CompaniesController < ApplicationController
 
 	def switch_medal_image(company_evaluation)
 
-		medal_image_name = ""
+		limit_to_gold = 4.0
+		limit_to_silver = 3.99
+		limit_to_bronze = 2.49
+		medal_image_name = "medal"
 
-		if(company_evaluation >= 4)
-			medal_image_name = "gold_medal.png"
-		elsif(company_evaluation <= 3.99 && company_evaluation >= 2.49)
-			medal_image_name = "silver_medal.png"
+		if(company_evaluation >= limit_to_gold)
+			medal_image_name = 'gold_medal.png'
+		elsif(company_evaluation <= limit_to_silver && company_evaluation >= limit_to_bronze)
+			medal_image_name = 'silver_medal.png'
 		else
-			medal_image_name = "bronze_medal.png"
+			medal_image_name = 'bronze_medal.png'
 		end
 
 		return medal_image_name
@@ -56,7 +60,7 @@ class CompaniesController < ApplicationController
 			@total_evaluations = @company.rate
 			@image_name = switch_medal_image(@total_evaluations)
 		else
-			#default
+			#nothing to do
 		end
 
 		if(logged_in?)
@@ -79,9 +83,9 @@ class CompaniesController < ApplicationController
 
 		if(@company.save)
 			flash[:notice] = 'Cadastro efetuado com sucesso!'
-			redirect_to @company
+			return redirect_to(@company)
 		else
-			render :new
+			return render(:new)
 		end
 
 	end
@@ -96,7 +100,7 @@ class CompaniesController < ApplicationController
 		@company = Company.find(params[:company][:id])
 
 		if(@company.user_id != current_user.id)
-			redirect_to home_path
+			return redirect_to(home_path)
 		else
 			return @company
 		end
@@ -118,7 +122,7 @@ class CompaniesController < ApplicationController
 			flash[:notice] = 'Erro ao atualizar o atributo!'
 		end
 
-		render :edit
+		return render(:edit)
 
 	end
 
@@ -161,4 +165,5 @@ class CompaniesController < ApplicationController
 			params[:company].permit(:name, :address, :telephone, :email, :description, :logo, :uf_id)
 
 		end
+
 end
