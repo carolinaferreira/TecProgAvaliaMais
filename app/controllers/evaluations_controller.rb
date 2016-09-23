@@ -14,7 +14,10 @@ class EvaluationsController < ApplicationController
 
 		evaluation = Evaluation.where(	:user_id => params[:evaluations][:user_id],
 									 	:company_id => params[:evaluations][:company_id])
+	  assert(evaluation.kind_of?(Evaluation), 'The object evaluation it could not be instantiated')
+
 		company = Company.find_by(id: params[:evaluations][:company_id])
+		assert(company.kind_of?(Company), 'The object company it could not be instantiated')
 
 		if(evaluation.present?)
 			evaluation.update_all(:grade => params[:evaluations][:grade])
