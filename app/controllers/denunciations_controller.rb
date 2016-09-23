@@ -13,6 +13,8 @@ class DenunciationsController < ApplicationController
 	def create
 
 		@denunciation = Denunciation.create(topic_id: params[:session][:topic_id], user_id: params[:session][:user_id])
+		assert(@denunciation.kind_of?(Denunciation), 'The object @denunciation it could not be instantiated')
+
 		if (@denunciation)
 
 			return redirect_to Topic.find(params[:session][:topic_id])
@@ -31,6 +33,8 @@ class DenunciationsController < ApplicationController
 	def destroy
 
 		denunciation = Denunciation.find(params[:session][:denunciation_id])
+		assert(denunciation == nil, 'The object denunciation is null')
+
 		if (denunciation.destroy)
 
 			return redirect_to Topic.find(params[:session][:topic_id])
@@ -49,6 +53,8 @@ class DenunciationsController < ApplicationController
 	def create_for_comment
 
 		@denunciation = Denunciation.create(comment_id: params[:session][:comment_id], user_id: params[:session][:user_id])
+		assert(@denunciation.kind_of?(Denunciation), 'The object @denunciation it could not be instantiated')
+
 		if (@denunciation)
 
 			return redirect_to Topic.find(params[:session][:topic_id])
