@@ -13,6 +13,7 @@ class CommentsController < ApplicationController
 	def create
 
 		comment = Comment.create(comment_params)
+		assert(comment.kind_of?(Comment), 'The object comment it could not be instantiated')
 
 		return redirect_to Topic.find(params[:comment][:topic_id])
 
@@ -26,6 +27,8 @@ class CommentsController < ApplicationController
 	def edit
 
 		comment = Comment.find(params[:comment][:comment_id])
+		assert(comment == nil, 'The object comment is null')
+
 		edit_comment_params(comment)
 
 		return redirect_to Topic.find(comment.topic_id)
@@ -40,9 +43,16 @@ class CommentsController < ApplicationController
 	def destroy
 
 		comment = Comment.find(params[:format])
+		assert(comment == nil, 'The object comment is null')
+
 		topic = comment.topic_id
+		assert(topic != comment.topic_id, 'The object topic is different of comment.topic_id')
+
 		comment.denunciations.delete_all
+
 		comment.destroy
+		assert(comment != nil, 'The object comment was not destroyed because'
+    + 'isnt null')
 
 		return redirect_to Topic.find(topic)
 
