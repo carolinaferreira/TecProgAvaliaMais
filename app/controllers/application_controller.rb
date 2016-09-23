@@ -6,4 +6,15 @@ class ApplicationController < ActionController::Base
   include CompaniesHelper
   include UsersHelper
   include TopicsHelper
+
+  def assert(condition, message)
+
+    if(condition)
+      # nothing to do
+    else
+      server_exception(message)
+    end
+
+  end
+  
 end
