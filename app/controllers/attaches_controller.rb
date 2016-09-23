@@ -13,8 +13,13 @@ class AttachesController < ApplicationController
 	def new
 
 		@attach = Attach.new
+		assert(@attach.kind_of?(Attach), 'The object @attach it could not be instantiated')
+
 		@company = Company.new
+		assert(@company.kind_of?(Company), 'The object @company it could not be instantiated')
+
 		@company = Company.find(params[:company_id])
+		assert(@company == nil, 'The object @company is null')
 
 	end
 
@@ -26,6 +31,7 @@ class AttachesController < ApplicationController
 	def show
 
 		@attach = Attach.find(params[:id])
+		assert(@attach == nil, 'The object @attach is null')
 
 	end
 
@@ -37,7 +43,10 @@ class AttachesController < ApplicationController
 	def create
 
 		@attach = Attach.new(attach_params)
+		assert(@attach.kind_of?(Attach), 'The object @attach it could not be instantiated')
+
 		@attach.user = current_user
+		assert(@attach.user == nil, 'The object @attach is null')
 
 		if (@attach.save)
 			flash[:notice] = 'Solicitação feita com sucesso!'
