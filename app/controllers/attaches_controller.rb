@@ -11,9 +11,11 @@ class AttachesController < ApplicationController
 	# Return: attach and company.
 
 	def new
+
 		@attach = Attach.new
 		@company = Company.new
 		@company = Company.find(params[:company_id])
+
 	end
 
 	# Name: show.
@@ -22,7 +24,9 @@ class AttachesController < ApplicationController
 	# Return: attach.
 
 	def show
+
 		@attach = Attach.find(params[:id])
+
 	end
 
 	# Name: create.
@@ -31,6 +35,7 @@ class AttachesController < ApplicationController
 	# Return: attach.
 
 	def create
+
 		@attach = Attach.new(attach_params)
 		@attach.user = current_user
 
@@ -40,6 +45,7 @@ class AttachesController < ApplicationController
 		else
 			return render :new
 		end
+
 	end
 
 	# Name: approve.
@@ -48,12 +54,15 @@ class AttachesController < ApplicationController
 	# Return: nothing.
 
 	def approve
+
 		attach = Attach.find(params[:format])
 		company = Company.find(attach.company_id)
  		company.update_attributes(:user_id => attach.user_id, :authenticated => true)
 		attach.destroy
 		flash[:notice] = 'Empresa vinculada com sucesso!'
+
 		return redirect_to management_attach_path
+
 	end
 
 	# Name: reject.
@@ -62,10 +71,13 @@ class AttachesController < ApplicationController
 	# Return: nothing.
 
 	def reject
+
 			attach = Attach.find(params[:format])
 			attach.destroy
-			flash[:notice] = 'Vínculo rejeitado com sucesso!'		
+			flash[:notice] = 'Vínculo rejeitado com sucesso!'
+
 			return redirect_to management_attach_path
+
 	end
 
 	# Name: attach_params.
@@ -73,9 +85,11 @@ class AttachesController < ApplicationController
 	# Parameters: attach.
 	# Return: nothing.
 
-	private 
+	private
 		def attach_params
+
 			params[:attach].permit(:cnpj, :address, :photo, :user_id, :company_id)
+
 		end
 
 end
