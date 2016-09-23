@@ -4,19 +4,23 @@
 # FGA - Universidade de Brasíilia UnB.
 
 class DenunciationsController < ApplicationController
-	
+
 	# Name: create.
 	# Objective: create a topic with the complaint.
 	# Parameters: denunciation.
 	# Return: nothing.
 
 	def create
+
 		@denunciation = Denunciation.create(topic_id: params[:session][:topic_id], user_id: params[:session][:user_id])
 		if (@denunciation)
+
 			return redirect_to Topic.find(params[:session][:topic_id])
+
 		else
 			# Nothing to do.
 		end
+
 	end
 
 	# Name: destroy.
@@ -25,12 +29,16 @@ class DenunciationsController < ApplicationController
 	# Return: nothing.
 
 	def destroy
+
 		denunciation = Denunciation.find(params[:session][:denunciation_id])
 		if (denunciation.destroy)
+
 			return redirect_to Topic.find(params[:session][:topic_id])
+
 		else
 			# Nothing to do.
-		end	
+		end
+
 	end
 
 	# Name: create_for_comment.
@@ -39,12 +47,16 @@ class DenunciationsController < ApplicationController
 	# Return: denunciation.
 
 	def create_for_comment
+
 		@denunciation = Denunciation.create(comment_id: params[:session][:comment_id], user_id: params[:session][:user_id])
 		if (@denunciation)
+
 			return redirect_to Topic.find(params[:session][:topic_id])
+
 		else
 			# Nothing to do.
 		end
+
 	end
 
 end
