@@ -5,10 +5,14 @@
 
 class CompaniesController < ApplicationController
 
-	# Name: new
-	# Objective: this method create a new instance of company on system.
-	# Parameters: don't have parameters.
-	# Return: redirect to the login page.
+	# Name:
+	# 	- new
+	# Objective:
+	# 	- this method create a new instance of company on system.
+	# *	*Args* :
+	#  	- don't have parameters.
+	# * *Returns* :
+	# 	- +login_path+ -> redirect to the login page.
 
 	def new
 
@@ -23,10 +27,14 @@ class CompaniesController < ApplicationController
 
 	end
 
-	# Name: switch_medal_image.
-	# Objective: this method set the name of medal to show on company page.
-	# Parameters: evaluation of companies.
-	# Return: the name of medal to switch on company page.
+	# Name:
+	# 	- switch_medal_image.
+	# Objective:
+	# 	-	this method set the name of medal to show on company page.
+	# *	*Args* :
+	# 	- +company_evaluation+ -> evaluation of companies.
+	# * *Returns* :
+	# 	- +medal_image_name+ -> the name of medal to switch on company page.
 
 	def switch_medal_image(company_evaluation)
 
@@ -37,7 +45,7 @@ class CompaniesController < ApplicationController
 
 		if(company_evaluation >= LIMIT_TO_GOLD)
 			medal_image_name = 'gold_medal.png'
-		elsif(company_evaluation <= LIMIT_TO_SILVER && company_evaluation >= LIMIT_TO_BRONZE)
+		elsif(company_evaluation <= LIMIT_TO_SILVER && company_evaluation >= LIMIT_TO_BRONZEc)
 			medal_image_name = 'silver_medal.png'
 		else
 			medal_image_name = 'bronze_medal.png'
@@ -47,10 +55,15 @@ class CompaniesController < ApplicationController
 
 	end
 
-	# Name: show
-	# Objective: this method renders the company's page.
-	# Parameters: company id
-	# Return: total evaluations, medal type name and evaluations of company.
+	# Name:
+	# 	- show
+	# Objective:
+	# 	- this method renders the company's page.
+	# *	*Args* :
+	#  	- +params[:id]+ -> id of used company.
+	# * *Returns* :
+	#   - +@current_evaluation+ -> total evaluations of actually used company.
+	# 	- +@company+ -> object of used company.
 
 	def show
 
@@ -71,10 +84,14 @@ class CompaniesController < ApplicationController
 
 	end
 
-	# Name: create
-	# Objective: this method create a new instance of company on system.
-	# Parameters: name, segment id, address, telephone, email, description, logo and UF id of company
-	# Return: redirect to company page or create company page.
+	# Name:
+	#  	- create
+	# Objective:
+	#  	- this method create a new instance of company on system.
+	# *	*Args* :
+	#  	- +set_company_params_to_create+ -> name, segment id, address, telephone, email, description, logo and UF id of company
+	# * *Returns* :
+	#  	- +@company+ -> redirect to company page.
 
 	def create
 
@@ -90,10 +107,15 @@ class CompaniesController < ApplicationController
 
 	end
 
-	# Name: edit
-	# Objective: this method checks whether the logged user is the owner of the corresponding company.
-	# Parameters: company object and your id.
-	# Return: redirect to intial page or company object.
+	# Name:
+	#   - edit
+	# Objective:
+	#  	- this method checks whether the logged user is the owner of the corresponding company.
+	# *	*Args* :
+	# 	- +:company+ -> company object.
+	#  	- +:id+ -> id of company object.
+	# * *Returns* :
+	#  	- +@company+ -> redirect to page of company.
 
 	def edit
 
@@ -107,10 +129,15 @@ class CompaniesController < ApplicationController
 
 	end
 
-	# Name: update
-	# Objective: this class edit an company in the database.
-	# Parameters: object of company id and your id
-	# Return: redirect to company edit page.
+	# Name:
+	#  	- update
+	# Objective:
+	#  	- this class edit an company in the database.
+	# *	*Args* :
+	#  	- +:company+ -> company object.
+	#  	- +:id+ -> id of company object.
+	# * *Returns* :
+	#  	- +@company+ -> redirect to page of edited company.
 
 	def update
 
@@ -126,10 +153,15 @@ class CompaniesController < ApplicationController
 
 	end
 
-	# Name: search
-	# Objective: this method search companies by name within the system.
-	# Parameters: search by name entered by the User
-	# Return: object of company.
+	# Name:
+	# 	 - search
+	# Objective:
+	#  	- this method search companies by name within the system.
+	# *	*Args* :
+	# 	- +:company+ -> company object.
+	#  	- +:id+ -> id of company object.
+	# * *Returns* :
+	# 	- +@company+ -> redirect to page of finded company.
 
 	def search
 
@@ -140,10 +172,14 @@ class CompaniesController < ApplicationController
 
 	end
 
-	# Name: set_company_params_to_create
-	# Objective: this method leads the company's parameters for the method create.
-	# Parameters: company object.
-	# Return: don't have return.
+	# Name:
+	# 		- set_company_params_to_create
+	# Objective:
+	# 		- this method leads the company's parameters for the method create.
+	# *	*Args* :
+	# 		- +:company+ -> company object.
+	# * *Returns* :
+	# 		- don't have return.
 
 	private
 
@@ -153,10 +189,14 @@ class CompaniesController < ApplicationController
 
 		end
 
-		# Name: set_company_params_to_update
-		# Objective: this method leads the company's parameters for the method update.
-		# Parameters: company object
-		# Return: don't have return.
+		# Name:
+		#  		- set_company_params_to_update
+		# Objective:
+		# 		- this method leads the company's parameters for the method update.
+		# *	*Args* :
+		# 		- +:company+ -> company object.
+		# * *Returns* :
+		# 		- don't have return.
 
 	private
 
