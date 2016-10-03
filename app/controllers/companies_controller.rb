@@ -30,14 +30,14 @@ class CompaniesController < ApplicationController
 
 	def switch_medal_image(company_evaluation)
 
-		limit_to_gold = 4.0
-		limit_to_silver = 3.99
-		limit_to_bronze = 2.49
+		LIMIT_TO_GOLD = 4.0
+		LIMIT_TO_SILVER = 3.99
+		LIMIT_TO_BRONZE = 2.49
 		medal_image_name = "medal"
 
-		if(company_evaluation >= limit_to_gold)
+		if(company_evaluation >= LIMIT_TO_GOLD)
 			medal_image_name = 'gold_medal.png'
-		elsif(company_evaluation <= limit_to_silver && company_evaluation >= limit_to_bronze)
+		elsif(company_evaluation <= LIMIT_TO_SILVER && company_evaluation >= LIMIT_TO_BRONZE)
 			medal_image_name = 'silver_medal.png'
 		else
 			medal_image_name = 'bronze_medal.png'
