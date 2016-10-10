@@ -17,9 +17,10 @@ class CompaniesController < ApplicationController
 	def new
 
 		@company = Company.new(nil)
+		logger.debug('A new company has been instantiated')
 
-		if(current_user.nil?)
-			return redirect_to(login_path), #alert: "Para cadastrar uma empresa é preciso estar logado"
+		if(current_user.nil?) # Checks if the current user is logged to register a company on system.
+			return redirect_to(login_path)
 			flash[:alert] = 'Para cadastrar uma empresa é preciso estar logado'
 		else
 			return @company
@@ -41,17 +42,22 @@ class CompaniesController < ApplicationController
 		LIMIT_TO_GOLD = 4.0
 		LIMIT_TO_SILVER = 3.99
 		LIMIT_TO_BRONZE = 2.49
-		medal_image_name = "medal"
+		medal_image_name = "medal" # Name of the company medal will be displayed on your page.
 
+		# Select the correct name of the medal according to the company's ratings
 		if(company_evaluation >= LIMIT_TO_GOLD)
 			medal_image_name = 'gold_medal.png'
+			logger.debug('The medal of the company was changed to gold')
 		elsif(company_evaluation <= LIMIT_TO_SILVER && company_evaluation >= LIMIT_TO_BRONZEc)
 			medal_image_name = 'silver_medal.png'
+			logger.debug('The medal of the company was changed to silver')
 		else
 			medal_image_name = 'bronze_medal.png'
+			logger.debug('The medal of the company was changed to bronze')
 		end
 
 		return medal_image_name
+		logger.debug('The method returns the correct name of the companys medal according to their evaluations')
 
 	end
 
@@ -67,19 +73,23 @@ class CompaniesController < ApplicationController
 
 	def show
 
-		@company = Company.find(params[:id])
+		@company = Company.find(params[:id]) # Find the company by id to later show your page on screen.
+		logger.debug('Company is being found through your identifier')
 
 		if(!@company.rate.nil?)
-			@total_evaluations = @company.rate
-			@image_name = switch_medal_image(@total_evaluations)
+			@company_assessment_average = @company.rate
+			@medal_image_name = switch_medal_image(@company_assessment_average)
+			logger.debug('Selected the companys medal name')
 		else
 			#nothing to do
 		end
 
 		if(logged_in?)
 			@current_evaluation = current_user.evaluations.find_by(company_id: @company.id)
+			logger.debug('Checked if the current user has evaluated the company')
 		else
 			return @company
+			logger.info('The application redirect to found company page')
 		end
 
 	end
@@ -96,13 +106,17 @@ class CompaniesController < ApplicationController
 	def create
 
 		@company = Company.new(set_company_params_to_create)
-		@company.authenticated = false
+		logger.debug('A new company has been created')
+
+		@company.authenticated = false # The false value is the default for company authentication.
 
 		if(@company.save)
 			flash[:notice] = 'Cadastro efetuado com sucesso!'
 			return redirect_to(@company)
+			logger.info('Redirected to the company page created')
 		else
 			return render(:new)
+			logger.debug('redirected to the companys creation page')
 		end
 
 	end
