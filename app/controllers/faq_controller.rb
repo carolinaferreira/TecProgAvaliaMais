@@ -12,10 +12,14 @@ class FaqController < ApplicationController
 
   def create
     faq = Faq.new(faq_params)
-    if faq.save
+
+    if(faq.save)
         company = Company.find(params[:faq][:company_id])
         flash[:notice] = 'Cadastrado com sucesso!'
+    else
+        #nothinh to do
     end
+
     return redirect_to company
 
   end
@@ -24,7 +28,7 @@ class FaqController < ApplicationController
   # Objective: this method is used to set the params.
   # Parameters: :question, :answer, :company_id.
   # Return: nothing.
-
+  
   def faq_params
     params[:faq].permit(:question, :answer, :company_id)
 
