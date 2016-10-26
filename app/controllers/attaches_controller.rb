@@ -64,6 +64,7 @@ class AttachesController < ApplicationController
 
 	def approve
 
+		# search a attach and respective company to approve the user request
 		attach = Attach.find(params[:format])
 		company = Company.find(attach.company_id)
  		company.update_attributes(:user_id => attach.user_id, :authenticated => true)
@@ -81,6 +82,7 @@ class AttachesController < ApplicationController
 
 	def reject
 
+			# find a attach to reject the user request for attach
 			attach = Attach.find(params[:format])
 			attach.destroy
 			flash[:notice] = 'Vínculo rejeitado com sucesso!'

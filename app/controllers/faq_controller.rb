@@ -14,11 +14,6 @@ class FaqController < ApplicationController
   # * *Returns* :
   #   - +company+ -> redirect to the login page.
 
-  # Name: create.
-  # Objective: this method create a new faq to companies.
-  # Parameters: company_id.
-  # Return: redirect_to company.
-
   def create
 
     faq = Faq.new(faq_params)
@@ -39,17 +34,23 @@ class FaqController < ApplicationController
 
   end
 
-  # Name: faq_params.
-  # Objective: this method is used to set the params.
-  # Parameters: :question, :answer, :company_id.
-  # Return: nothing.
+  # Name:
+  #   - set_faq_parameters.
+  # Objective:
+  #   - this method is used to set the params.
+  # * *Args* :
+  #   - +:question+ -> question of param.
+  #   - +:answer+ -> answer of param.
+  #   - +company_id+ -> id of company to param.
+  # * *Returns* :
+  #   - dont have returns.
 
   private
 
-  def faq_params
+    def set_faq_parameters
+        
+        params[:faq].permit(:question, :answer, :company_id)
 
-    params[:faq].permit(:question, :answer, :company_id)
-
-  end
+    end
 
 end

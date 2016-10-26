@@ -11,8 +11,12 @@ class SegmentsController < ApplicationController
     # Return: @company, @segment.
 
     def show_segment
+
         @company = Company.all.order(:name)
         @segment = Segment.all
+
+        return @company
+        return @segment
 
     end
 

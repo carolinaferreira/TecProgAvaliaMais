@@ -77,10 +77,13 @@ class TopicsController < ApplicationController
 	def update
 
 		@topic = Topic.find(params[:id])
+
 		if(@topic.update_attributes(topic_params))
     		respond_to do |format| format.html {redirect_to :action => "show",:id => @topic.id}
 	    		flash[:notice] = "Tópico atualizado"
 	    	end
+		else
+			# nothing to do
     	end
 
 	end
@@ -98,8 +101,9 @@ class TopicsController < ApplicationController
 	    	flash[:notice] = "Tópico excluído!"
 
 				return redirect_to company
-
-			end
+		else
+			# nothing to do
+		end
 
 	end
 
