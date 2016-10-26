@@ -5,69 +5,108 @@
 
 class UsersController < ApplicationController
 
-	# Name: new
-	# Objective: instantiates an object of type User
-	# Parameters: none
-	# Return: user object
+	# Name:
+	# 	- new
+	# Objective:
+	# 	- instantiates an object of type User.
+	# *	*Args* :
+	#  	- none.
+	# * *Returns* :
+	# 	- +user+ -> user object
 
 	def new
 
-		if (logged_in? == false)
-	 		@user = User.new
-	 		return @user
+		# create a new user instance to be persisted in the database, if it is not logged in and therefore is already created
+		if(logged_in? == true)
+	 		return redirect_to(home_path)
+	 		logger.info('The application has been redirect to home page, line 21')
 		else
-			return redirect_to home_path
+			@user = User.new(new)
+			logger.debug('A user has been instantiated, line 24')
+			assert(@comment.kind_of(User), 'The object @user it could not be instantiated'
+    		+ 'because does not belong to controller')
+
+	 		return @user			
 		end
 
 	end
 
-	# Name: show
-	# Objective: find an User object to be present
-	# Parameters: identifier of an User
-	# Return: user object
+	# Name:
+	# 	- show
+	# Objective:
+	# 	- find an User object to be present.
+	# *	*Args* :
+	#  	- identifier of an User.
+	# * *Returns* :
+	# 	- +user+ -> user object
 
 	def show
 
 		@user = User.find(params[:id])
-		if (@user == current_user)
+		logger.debug('A user #{@user.user_id} is being requested to show, line 45')
+		assert(@user != nil, 'The comment object is null')
+
+		if(@user == current_user)
+			logger.debug('A user object has been returned, line 51')
 			return @user
 		else
-			return redirect_to home_path
+			return redirect_to(home_path)
+			logger.info('The application has been redirect to home page, line 53')
 		end
 
 	end
 
-	# Name: create
-	# Objective: create an user and set it as current user
-	# Parameters: user parameters
-	# Return: redirection to home page
+	# Name:
+	# 	- create
+	# Objective:
+	# 	- create an user and set it as current user.
+	# *	*Args* :
+	#  	- user parameters
+	# * *Returns* :
+	# 	- +home_path+ -> redirect to home page. 
+	#   - +:new+ -> redirect to user page.
 
 	def create
 
 	 	@user = User.new(set_user_parameters)
-		if (@user.save)
+	 	logger.debug('A new user object has been created, line 71')
+	 	assert(@user != nil, 'The comment object is null')
+
+		if(@user.save)
+			assert(@user.save != false, 'A new user dont save in database')
 			session[:user_id] = @user.id #iniciate a new session
-			log_in @user
+			log_in(@user)
 			flash[:notice] = 'Cadastro efetuado com sucesso!'
-			return redirect_to home_path
+			return redirect_to(home_path)
+			logger.info('The application has been redirect to home page, line 79')
 		else
-			return render :new
+			return render(:new)
+			logger.info('The application has been redirect to user page, line 82')
 		end
 
 	end
 
-	# Name: edit
-	# Objective: find an User object to be present
-	# Parameters: identifier of an User
-	# Return: user object
+	# Name:
+	# 	- edit
+	# Objective:
+	# 	- find an User object to be present.
+	# *	*Args* :
+	#  	- identifier of an User
+	# * *Returns* :
+	# 	- +user+ -> user object
 
 	def edit
 
-		@user = User.find(params[:id])
+		@user = User.find(params[:id])rams[:id])
+		logger.debug('A user #{@user.user_id} is being requested to show, line 45')
+		assert(@user != nil, 'The comment object is null')		
+
 		if (@user == current_user)
+			logger.debug('A user object has been returned, line 104')
 			return @user
 		else
 			return redirect_to home_path
+			logger.info('The application has been redirect to home page, line 109')
 		end
 
 	end
@@ -163,11 +202,15 @@ class UsersController < ApplicationController
 
 		end
 
+	private
+
 		def update_user_attributes
 
 			params[:user].permit(:name, :dateBirthday, :gender)
 
 		end
+
+	private
 
 		def set_new_password
 
