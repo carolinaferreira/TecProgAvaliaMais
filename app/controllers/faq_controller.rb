@@ -11,7 +11,7 @@ class FaqController < ApplicationController
   # Return: redirect_to company.
 
   def create
-    faq = Faq.new(faq_params)
+    faq = Faq.new(set_faq_parameters)
 
     if(faq.save)
         company = Company.find(params[:faq][:company_id])
@@ -24,14 +24,17 @@ class FaqController < ApplicationController
 
   end
 
-  # Name: faq_params.
+  # Name: set_faq_parameters.
   # Objective: this method is used to set the params.
   # Parameters: :question, :answer, :company_id.
   # Return: nothing.
-  
-  def faq_params
-    params[:faq].permit(:question, :answer, :company_id)
 
-  end
+  private
+
+    def set_faq_parameters
+        
+        params[:faq].permit(:question, :answer, :company_id)
+
+    end
 
 end
