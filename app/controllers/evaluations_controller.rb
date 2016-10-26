@@ -26,6 +26,8 @@ class EvaluationsController < ApplicationController
 			company.update_attributes(:rate => (params[:evaluations][:grade	]))
 			if(evaluation.save)
 				flash[:notice] = 'Avaliação realizada com sucesso!'
+			else
+				# nothing to do
 			end
 
 		end
@@ -55,6 +57,8 @@ class EvaluationsController < ApplicationController
 			company.update_attributes(:response_time => (params[:response][:response_time]))
 			if(evaluation.save)
 				flash[:notice] = 'Avaliação por tempo de resposta realizada com sucesso!'
+			else
+				# nothing to do
 			end
 		end
 
