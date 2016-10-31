@@ -59,6 +59,8 @@ class SessionsController < ApplicationController
 	# Parameters: user identifier.
 	# Return: redirect to login page.
 
+	private
+
 	def find_user_to_log
 
 		User.find_by(login: params[:session][:login]) || User.find_by(email: params[:session][:login])
