@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 			assert(@comment.kind_of(User), 'The object @user it could not be instantiated'
     		+ 'because does not belong to controller')
 
-	 		return @user			
+	 		return @user
 		end
 
 	end
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 	# *	*Args* :
 	#  	- user parameters
 	# * *Returns* :
-	# 	- +home_path+ -> redirect to home page. 
+	# 	- +home_path+ -> redirect to home page.
 	#   - +:new+ -> redirect to user page.
 
 	def create
@@ -76,6 +76,7 @@ class UsersController < ApplicationController
 			assert(@user.save != false, 'A new user dont save in database')
 			session[:user_id] = @user.id #iniciate a new session
 			log_in(@user)
+
 			flash[:notice] = 'Cadastro efetuado com sucesso!'
 			return redirect_to(home_path)
 			logger.info('The application has been redirect to home page, line 79')
@@ -99,7 +100,7 @@ class UsersController < ApplicationController
 
 		@user = User.find(params[:id])rams[:id])
 		logger.debug('A user #{@user.user_id} is being requested to show, line 45')
-		assert(@user != nil, 'The comment object is null')		
+		assert(@user != nil, 'The comment object is null')
 
 		if (@user == current_user)
 			logger.debug('A user object has been returned, line 104')
@@ -118,9 +119,10 @@ class UsersController < ApplicationController
 
 	def destroy
 
-		#destroy all user dependences on database but don't destroy the references objects
 		session[:user_id] = nil
- 		user = User.find(params[:id])
+
+		#destroy all user dependences on database but don't destroy the references objects
+		user = User.find(params[:id])
  		user.attaches.delete_all
  		delete_user_company_association(user.companies)
  		user.companies.delete_all
@@ -130,6 +132,7 @@ class UsersController < ApplicationController
  		user.evaluations.delete_all
  		user.denunciations.delete_all
  		user.destroy
+
 		return redirect_to home_path
 
 	end
@@ -167,7 +170,8 @@ class UsersController < ApplicationController
   	def update_password
 
   		@user = User.find(params[:id])
-  		if  (@user.authenticate(params[:user][:password_older]))
+
+		if  (@user.authenticate(params[:user][:password_older]))
   			if (@user.update_attributes(set_new_password))
   				flash[:notice] = 'Senha atualizada com sucesso!'
   			else
