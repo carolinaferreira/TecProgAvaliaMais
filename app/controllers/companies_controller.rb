@@ -157,13 +157,19 @@ class CompaniesController < ApplicationController
 
 		@company = Company.find(params[:company][:id])
 
-		if(@company.update_attributes(set_company_params_to_update))
-			flash[:notice] = 'Atributo atualizado com sucesso'
-		else
-			flash[:notice] = 'Erro ao atualizar o atributo!'
-		end
+		COMPANIES_ARRAY_SIZE = Company.all.size
 
-		return render(:edit)
+		if(@company.size => 0 && @company.size <= 1 )
+			if(@company.update_attributes(set_company_params_to_update))
+				flash[:notice] = 'Atributo atualizado com sucesso'
+			else
+				flash[:notice] = 'Erro ao atualizar o atributo!'
+			end
+
+			return render(:edit)
+		else
+			rescue Exception ("Error")
+		end
 
 	end
 
@@ -180,7 +186,15 @@ class CompaniesController < ApplicationController
 	def search
 
 		@search_param = params[:current_search][:search]
-  	@company = Company.where("name LIKE :search", :search => "%#{params[:current_search][:search]}%")
+  		@company = Company.where("name LIKE :search", :search => "%#{params[:current_search][:search]}%")
+
+		COMPANIES_ARRAY_SIZE = Company.all.size
+
+		if(@company.size <= COMPANIES_ARRAY_SIZE && @company.size >= 0 )
+			return @company
+		else
+			rescue Exception ("Error")
+		end
 
   	return @company
 
