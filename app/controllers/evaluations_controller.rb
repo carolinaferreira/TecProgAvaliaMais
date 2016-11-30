@@ -21,6 +21,8 @@ class EvaluationsController < ApplicationController
 		logger.debug('A new company pbject has been created, using existing parameters')
 		assert(company.kind_of?(Company), 'The object company it could not be instantiated')
 
+		checking_numeric_values(evaluation.size)
+
 	    # This structure is used to check the existence of an evaluation.
 		if(evaluation.present?)
 			evaluation.update_all(:grade => params[:evaluations][:grade])
@@ -57,6 +59,8 @@ class EvaluationsController < ApplicationController
 		company = Company.find_by(id: params[:response][:company_id])
 		assert(company.kind_of?(Company), 'Company object can not be empty')
 
+		checking_numeric_values(evaluation.size)
+
 		# This structure is used to check the existence of an evaluation.
 		if(evaluation.present?)
 			evaluation.update_all(:response_time => params[:response][:response_time])
@@ -89,6 +93,16 @@ class EvaluationsController < ApplicationController
 		def set_response_parameters
 
 			params[:response].permit(:response_time, :company_id, :user_id)
+
+		end
+
+		def checking_numeric_values(ARRAY_SIZE, DOWN_LIMIT, HIGHT_LIMIT)
+
+			if(ARRAY_SIZE < DOWN_LIMIT || ARRAY_SIZE > HIGHT_LIMIT)
+				return rescue Exception("Invalid values to evalation array.")
+			else
+				# nothing to do
+			end
 
 		end
 

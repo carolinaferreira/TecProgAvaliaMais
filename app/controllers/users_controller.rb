@@ -76,6 +76,7 @@ class UsersController < ApplicationController
 			assert(@user.save != false, 'A new user dont save in database')
 			session[:user_id] = @user.id #iniciate a new session
 			log_in(@user)
+
 			flash[:notice] = 'Cadastro efetuado com sucesso!'
 			return redirect_to(home_path)
 			logger.info('The application has been redirect to home page, line 79')
@@ -111,20 +112,17 @@ class UsersController < ApplicationController
 
 	end
 
-	# Name:
-	# 	- destroy
-	# Objective:
-	# 	- destroy an user.
-	# *	*Args* :
-	#  	- identifier of an User
-	# * *Returns* :
-	# 	- nothing
+	# Name: destroy
+	# Objective: destroy an user
+	# Parameters: user identifier
+	# Return: redirection to home page
 
 	def destroy
 
-		#destroy all user dependences on database but don't destroy the references objects
 		session[:user_id] = nil
- 		user = User.find(params[:id])
+
+		#destroy all user dependences on database but don't destroy the references objects
+		user = User.find(params[:id])
  		user.attaches.delete_all
  		delete_user_company_association(user.companies)
  		user.companies.delete_all
@@ -135,28 +133,18 @@ class UsersController < ApplicationController
  		user.denunciations.delete_all
  		user.destroy
 
-		logger.debug('A user #{@user.user_id} is being requested to be deleted, line 127')
-		assert(@user == nil, 'The comment object was not destroyed correctly')
-
 		return redirect_to home_path
 
 	end
 
-	# Name:
-	# 	- update
-	# Objective:
-	# 	- update some user attributes.
-	# *	*Args* :
-	#  	- new user attributes
-	# * *Returns* :
-	# 	- +user+ -> user object
+	# Name: update
+	# Objective: update some user attributes
+	# Parameters: new user attributes descriptions
+	# Return: user object
 
 	def update
 
     	@user = User.find(params[:id])
-		logger.debug('A user #{@user.user_id} is being requested to be updated, line 157')
-		assert(@user != nil, 'The user object can not be null')
-
     	if (@user.update_attributes(update_user_attributes))
 			#Formating user update form with JavaScript, letting this to update without
 			#refresh the page
@@ -174,22 +162,16 @@ class UsersController < ApplicationController
 
   	end
 
-	# Name:
-	# 	- update_password
-	# Objective:
-	# 	- update user password.
-	# *	*Args* :
-	#  	- current password, new password and passwod confirmation
-	# * *Returns* :
-	# 	- +user+ -> user object
+  	# Name: update_password
+	# Objective: update user password
+	# Parameters: current password, new password and passwod confirmation
+	# Return: a user object
 
   	def update_password
 
   		@user = User.find(params[:id])
-		logger.debug('A user #{@user.user_id} is being requested to update it password, line 188')
-		assert(@user != nil, 'The user object can not be null')
 
-  		if  (@user.authenticate(params[:user][:password_older]))
+		if  (@user.authenticate(params[:user][:password_older]))
   			if (@user.update_attributes(set_new_password))
   				flash[:notice] = 'Senha atualizada com sucesso!'
   			else
@@ -198,19 +180,14 @@ class UsersController < ApplicationController
   		else
   			flash[:notice] = 'Senha invalida!'
   		end
-
   		return redirect_to :action => "show", :id => @user.id
 
   	end
 
-	# Name:
-	# 	- delete_user_company_association
-	# Objective:
-	# 	- set as false a user's companies authentications
-	# *	*Args* :
-	#  	- user companies
-	# * *Returns* :
-	# 	- nothing
+	# Name: delete_user_company_association
+	# Objective: set as false a user's companies authentications
+	# Parameters: user companies
+	# Return: none
 
   	def delete_user_company_association(companies)
 

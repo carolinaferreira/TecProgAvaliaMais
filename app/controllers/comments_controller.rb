@@ -12,6 +12,7 @@ class CommentsController < ApplicationController
 
 	def create
 
+		# To instance a new comment object / create a new comment on topic.
 		comment = Comment.create(set_comment_params)
 		logger.debug('A new comment has been created')
 		assert(@comment.kind_of(Comment), 'The object @comment it could not be instantiated'
@@ -29,10 +30,12 @@ class CommentsController < ApplicationController
 
 	def edit
 
+		# To seek proper comment to be edited using your id as parameter
 		comment = Comment.find(params[:comment][:comment_id])
 		logger.debug('A comment #{comment.comment_id} is being requested to edit')
 		assert(comment.user_id != nil, 'The attribute user_id of comment object is null')
 
+		# To update the review with their modifications due, taking the function to edit attributes
 		edit_comment_params(comment)
 		logger.debug('A comment #{comment.comment_id} has been edited')
 		assert(comment != nil, 'The comment object isnt null')
@@ -49,12 +52,14 @@ class CommentsController < ApplicationController
 
 	def destroy
 
+		# Destined to find its comment and make a request to delete.
 		comment = Comment.find(params[:format])
 		logger.debug('A comment #{comment.comment_id} is being requested to destroy')
 		assert(comment.kind_of(Comment), 'The object @comment it could not be instantiated'
     + 'because does not belong to controller')
 
-		comment.denunciations.delete_all # It should be deleted the complaints because the attribute is foreign key
+		# It should be deleted the complaints because the attribute is foreign key
+		comment.denunciations.delete_all
 		logger.debug('All denunciations of comment #{comment.comment_id} has been deleted')
 		assert(comment.denunciations == 0, 'The denunciations of comment was not deleted')
 
@@ -62,6 +67,7 @@ class CommentsController < ApplicationController
 		topic_id_of_comment_destroyed = comment.topic_id
 		logger.info('The id of topic to which belongs the comment was saved')
 
+		# To delete the comment, destroying their dependencies with topic foreign key
 		comment.destroy
 		logger.debug('The comment #{comment.comment_id} has been deleted')
 		assert(comment == nil, 'The comment object isnt null')
@@ -78,12 +84,12 @@ class CommentsController < ApplicationController
 
 	private
 
-		def edit_comment_params(comment)
+	def edit_comment_params(comment)
 
-			comment.update_attributes(:description => params[:comment][:new_description])
-			logger.debug('The params of edit comment has been set')
+		comment.update_attributes(:description => params[:comment][:new_description])
+		logger.debug('The params of edit comment has been set')
 
-		end
+	end
 
 	# Name: set_comment_params.
 	# Objective: set the parameters of the comments to create.
@@ -92,11 +98,11 @@ class CommentsController < ApplicationController
 
 	private
 
-		def set_comment_params
+	def set_comment_params
 
-			params[:comment].permit(:description, :user_id, :topic_id)
-			logger.debug('The params of new comment has been set')
+		params[:comment].permit(:description, :user_id, :topic_id)
+		logger.debug('The params of new comment has been set')
 
-		end
+	end
 
 end

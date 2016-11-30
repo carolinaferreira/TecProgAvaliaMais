@@ -9,12 +9,12 @@ class ApplicationController < ActionController::Base
 
   def assert(condition, message)
 
-    if(condition)
-      # nothing to do
+    if(!condition)
+        server_exception(message)
     else
-      server_exception(message)
+        # nothing to do
     end
 
   end
-  
+
 end
