@@ -13,12 +13,15 @@ class AttachesController < ApplicationController
 	def new
 
 		@attach = Attach.new
+		logger.info("A new attach object was settted, at line 15");
 		assert(@attach.kind_of?(Attach), 'The object @attach it could not be instantiated')
 
 		@company = Company.new
+		logger.info("A new company object was setted, at line 19");
 		assert(@company.kind_of?(Company), 'The object @company it could not be instantiated')
 
 		@company = Company.find(params[:company_id])
+		logger.info("A company is being requested to show at line 23");
 		assert(@company == nil, 'The object @company is null')
 
 	end
@@ -31,6 +34,7 @@ class AttachesController < ApplicationController
 	def show
 
 		@attach = Attach.find(params[:id])
+		logger.info("A attach is being requested to show at line, 36");
 		assert(@attach == nil, 'The object @attach is null')
 
 	end
@@ -43,14 +47,17 @@ class AttachesController < ApplicationController
 	def create
 
 		@attach = Attach.new(attach_params)
+		logger.debug('A attach new attach objetc was setted, line 49')
 		assert(@attach.kind_of?(Attach), 'The object @attach it could not be instantiated')
 
 		@attach.user = current_user
+		logger.info("Status of attach user was setted, at line 53");
 		assert(@attach.user == nil, 'The object @attach is null')
 
 		if (@attach.save)
 			flash[:notice] = 'Solicitação feita com sucesso!'
 			return redirect_to company_path(@attach.company_id)
+			logger.info('The application has been redirect to company path, line 59')
 		else
 			return render :new
 		end
@@ -72,6 +79,7 @@ class AttachesController < ApplicationController
 		flash[:notice] = 'Empresa vinculada com sucesso!'
 
 		return redirect_to management_attach_path
+		logger.info("The application has been redirect to management attach path, at line 81");
 
 	end
 
@@ -88,6 +96,7 @@ class AttachesController < ApplicationController
 			flash[:notice] = 'Vínculo rejeitado com sucesso!'
 
 			return redirect_to management_attach_path
+			logger.info("The application has been redirect to management attach path, at line 81");
 
 	end
 
