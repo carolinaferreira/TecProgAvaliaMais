@@ -74,12 +74,25 @@ class AttachesController < ApplicationController
 		# search a attach and respective company to approve the user request
 		attach = Attach.find(params[:format])
 		company = Company.find(attach.company_id)
- 		company.update_attributes(:user_id => attach.user_id, :authenticated => true)
-		attach.destroy
-		flash[:notice] = 'Empresa vinculada com sucesso!'
 
-		return redirect_to management_attach_path
-		logger.info("The application has been redirect to management attach path, at line 81");
+		ATTACH_ARRAY_SIZE = Attach.all.size
+		COMPANY_ARRAY_SIZE =  Company.all.size
+
+		if (attach.size <= ATTACH_ARRAY_SIZE && attach.size => 0)
+			if (company.size <=  COMPANY_ARRAY_SIZE && company.size =>0)
+				company.update_attributes(:user_id => attach.user_id, :authenticated => true)
+				attach.destroy
+				flash[:notice] = 'Empresa vinculada com sucesso!'
+
+				return redirect_to management_attach_path
+				logger.info("The application has been redirect to management attach path, at line 81");
+
+			else
+				# Nothing to do.
+			end
+		else
+			rescue Exception("Error condition, at line 81")
+		end
 
 	end
 
@@ -92,11 +105,18 @@ class AttachesController < ApplicationController
 
 			# find a attach to reject the user request for attach
 			attach = Attach.find(params[:format])
-			attach.destroy
-			flash[:notice] = 'Vínculo rejeitado com sucesso!'
+			ATTACH_ARRAY_SIZE = Attach.all.size
 
-			return redirect_to management_attach_path
-			logger.info("The application has been redirect to management attach path, at line 81");
+			if (attach.size <= ATTACH_ARRAY_SIZE && attach.size => 0)
+				attach.destroy
+				flash[:notice] = 'Vínculo rejeitado com sucesso!'
+
+				return redirect_to management_attach_path
+				logger.info("The application has been redirect to management attach path, at line 81");
+
+			else
+			rescue Exception("Error condition, at line 110")
+			end
 
 	end
 
