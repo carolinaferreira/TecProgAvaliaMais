@@ -20,8 +20,20 @@ class QuestionsController < ApplicationController
         @question = Question.new
         @company = Company.find(params[:question][:company_id])
 
-        return @question
-        return @company
+        QUESTION_ARRAY_SIZE = Question.all.size
+        COMPANY_ARRAY_SIZE =  Company.all.size
+
+        if (@question.size <= QUESTION_ARRAY_SIZE && @question.size => 0)
+            if (@company.size < = COMPANY_ARRAY_SIZE && @company.size => 0)
+                return @question
+                return @company
+
+            else
+                # Nothing to do
+            end
+        else
+            rescue Exception ("Error condition, at line 26")
+        end
 
     end
 
@@ -38,7 +50,7 @@ class QuestionsController < ApplicationController
 
         @question = Question.new(question_params)
 
-        if @question.save!
+        if (@question.save!)
             redirect_to @question
         else
             # nothing to do
@@ -57,9 +69,13 @@ class QuestionsController < ApplicationController
     def show
 
         @question = Question.find(params[:id])
+        QUESTION_ARRAY_SIZE = Question.all.size
 
-        return @question
-
+        if(@question.size <= QUESTION_ARRAY_SIZE && @question.size => 0)
+            return @question
+        else
+            rescue  Exception ("Error condition, at line 74")
+        end
     end
 
     # Name:
